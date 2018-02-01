@@ -20,13 +20,13 @@ class Template extends React.Component {
     if (location.pathname === "/") {
       header = (
         <h1>
-          <Link to={"/"}>Liu Longbiao Blog</Link>
+          <Link to={"/"}>LiuLongbiao's Blog</Link>
         </h1>
       );
     } else {
       header = (
         <h3>
-          <Link to={"/"}>Liu Longbiao Blog</Link>
+          <Link to={"/"}>LiuLongbiao's Blog</Link>
         </h3>
       );
     }
