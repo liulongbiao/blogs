@@ -14,15 +14,21 @@ const Avatar = styled.img`
   height: 6rem;
 `;
 
+const Desc = styled.div`
+  blockquote {
+    text-align: right;
+  }
+`;
+
 class Bio extends React.Component {
   render() {
     return (
       <BioWrapper>
         <Avatar src={profilePic} alt={`Liu Longbiao`} />
-        <div>
-          纸上得来终觉浅，绝知此事要躬行。<hr />
+        <Desc>
+          <blockquote>纸上得来终觉浅，绝知此事要躬行。</blockquote>
           现就职于杭州施强教育科技有限公司，专注于使用计算机技术辅助教学过程。
-        </div>
+        </Desc>
       </BioWrapper>
     );
   }
