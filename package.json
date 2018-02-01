@@ -27,7 +27,8 @@
   },
   "devDependencies": {
     "gh-pages": "^0.12.0",
-    "prettier": "^1.6.1"
+    "prettier": "^1.6.1",
+    "rimraf": "^2.6.2"
   },
   "homepage": "https://github.com/liulongbiao/blogs/issues#readme",
   "keywords": [
@@ -41,6 +42,7 @@
     "url": "git+https://github.com/liulongbiao/blogs.git"
   },
   "scripts": {
+    "clean": "rimraf ./public",
     "dev": "gatsby develop",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Error: no test specified\" && exit 1",
