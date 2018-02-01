@@ -5,6 +5,7 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 
 import Bio from "../components/Bio";
+import Tags from "../components/tags";
 
 const Index = styled.div`
   padding: 2rem 1rem;
@@ -18,13 +19,6 @@ const Post = styled.div`
       color: #007caa;
       text-decoration: none;
     }
-  }
-  .tag {
-    color: white;
-    background: #00a2ff;
-    margin: 0 0.5em;
-    padding: 0 0.5em;
-    border-radius: 4px;
   }
 `;
 
@@ -47,16 +41,8 @@ class BlogIndex extends React.Component {
                     {post.node.frontmatter.title}
                   </Link>
                 </h3>
-                <small>
-                  {post.node.frontmatter.date}
-                  {post.node.frontmatter.tags.map((tag, i) => {
-                    return (
-                      <span key={tag} className="tag">
-                        {tag}
-                      </span>
-                    );
-                  })}
-                </small>
+                <small>{post.node.frontmatter.date}</small>
+                <Tags list={post.node.frontmatter.tags || []} />
                 <p dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />
               </Post>
             );
