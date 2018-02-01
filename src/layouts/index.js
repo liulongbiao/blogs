@@ -1,5 +1,17 @@
 import React from "react";
 import Link from "gatsby-link";
+import styled from "styled-components";
+
+const Container = styled.div`
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+`;
 
 class Template extends React.Component {
   render() {
@@ -19,10 +31,10 @@ class Template extends React.Component {
       );
     }
     return (
-      <div>
+      <Container>
         {header}
         {children()}
-      </div>
+      </Container>
     );
   }
 }
