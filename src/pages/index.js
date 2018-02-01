@@ -19,6 +19,13 @@ const Post = styled.div`
       text-decoration: none;
     }
   }
+  .tag {
+    color: white;
+    background: #00a2ff;
+    margin: 0 0.5em;
+    padding: 0 0.5em;
+    border-radius: 4px;
+  }
 `;
 
 class BlogIndex extends React.Component {
@@ -40,7 +47,16 @@ class BlogIndex extends React.Component {
                     {post.node.frontmatter.title}
                   </Link>
                 </h3>
-                <small>{post.node.frontmatter.date}</small>
+                <small>
+                  {post.node.frontmatter.date}
+                  {post.node.frontmatter.tags.map((tag, i) => {
+                    return (
+                      <span key={tag} className="tag">
+                        {tag}
+                      </span>
+                    );
+                  })}
+                </small>
                 <p dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />
               </Post>
             );
@@ -74,6 +90,7 @@ export const pageQuery = graphql`
           }
           frontmatter {
             title
+            tags
           }
         }
       }

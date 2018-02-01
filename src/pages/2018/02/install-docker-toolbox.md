@@ -2,6 +2,7 @@
 title: 在 Windows 7 中安装 docker-toolbox
 date: "2018-02-01"
 path: "/install-docker-toolbox/"
+tags: ["docker", "docker-toolbox"]
 ---
 
 ## 安装 VirtualBox 4.3.12 和 Docker Toolbox
