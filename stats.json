@@ -9,12 +9,16 @@
       "component---src-templates-tags-js-834061c996d4fc2efe24.js.map"
     ],
     "path---tags": [
-      "path---tags-a4e130b8a3f3bd4c76c0.js",
-      "path---tags-a4e130b8a3f3bd4c76c0.js.map"
+      "path---tags-61de0d1d7f5519c625ba.js",
+      "path---tags-61de0d1d7f5519c625ba.js.map"
     ],
     "path---": [
       "path----557518bd178906f8d58a.js",
       "path----557518bd178906f8d58a.js.map"
+    ],
+    "path---tags-project-management": [
+      "path---tags-project-management-83a8342a3b625101a04b.js",
+      "path---tags-project-management-83a8342a3b625101a04b.js.map"
     ],
     "component---node-modules-gatsby-plugin-offline-app-shell-js": [
       "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js",
@@ -32,31 +36,43 @@
       "path---install-docker-toolbox-2cba3f0bd6327cc666bc.js",
       "path---install-docker-toolbox-2cba3f0bd6327cc666bc.js.map"
     ],
+    "path---tags-planning": [
+      "path---tags-planning-e02befdf1070aac68df2.js",
+      "path---tags-planning-e02befdf1070aac68df2.js.map"
+    ],
     "path---index": [
-      "path---index-17a2049d8baa9ecd975b.js",
-      "path---index-17a2049d8baa9ecd975b.js.map"
+      "path---index-f2d8acfbcf81cb40e849.js",
+      "path---index-f2d8acfbcf81cb40e849.js.map"
     ],
     "commons": [
       "commons-7eb08d8411d45e65fdac.js",
       "commons-7eb08d8411d45e65fdac.js.map"
     ],
     "path---tags-docker": [
-      "path---tags-docker-89cd4bf4ab3b4ad4b8ab.js",
-      "path---tags-docker-89cd4bf4ab3b4ad4b8ab.js.map"
+      "path---tags-docker-01482ca0605b0a6e7b0b.js",
+      "path---tags-docker-01482ca0605b0a6e7b0b.js.map"
+    ],
+    "path---gist-planning": [
+      "path---gist-planning-6087d88dd48a52878bc2.js",
+      "path---gist-planning-6087d88dd48a52878bc2.js.map"
     ],
     "path---offline-plugin-app-shell-fallback": [
       "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js",
       "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js.map"
     ],
     "app": [
-      "app-5e65c1876cd4816161b3.js",
+      "app-a9df6e56aeb32f2d7796.js",
       "build-js-styles.css",
-      "app-5e65c1876cd4816161b3.js.map",
+      "app-a9df6e56aeb32f2d7796.js.map",
       "build-js-styles.css.map"
     ],
     "path---tags-docker-toolbox": [
-      "path---tags-docker-toolbox-e6908d2142b1cbe3af57.js",
-      "path---tags-docker-toolbox-e6908d2142b1cbe3af57.js.map"
+      "path---tags-docker-toolbox-e7c8b519d13b33cca154.js",
+      "path---tags-docker-toolbox-e7c8b519d13b33cca154.js.map"
+    ],
+    "path---add-column-on-big-table": [
+      "path---add-column-on-big-table-f14ed8504e25922ac0ca.js",
+      "path---add-column-on-big-table-f14ed8504e25922ac0ca.js.map"
     ]
   }
 }

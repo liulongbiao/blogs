@@ -1,0 +1,165 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link rel="preload" href="/blogs/component---src-layouts-index-js-50448f456c17df2a1e73.js" as="script"/><link rel="preload" href="/blogs/component---src-templates-blog-post-js-8474d29277d63cb0c4a6.js" as="script"/><link rel="preload" href="/blogs/path---add-column-on-big-table-f14ed8504e25922ac0ca.js" as="script"/><link rel="preload" href="/blogs/app-a9df6e56aeb32f2d7796.js" as="script"/><link rel="preload" href="/blogs/commons-7eb08d8411d45e65fdac.js" as="script"/><style type="text/css" data-styled-components="iiWJkG jGuRgo gPfKFk hsfZhT" data-styled-components-is-local="true">/* sc-component-id: sc-bdVaJa */
+
+.iiWJkG{max-width:50rem;margin:0 auto;padding:2rem 1rem;}
+.iiWJkG a{text-decoration:none;color:black;}
+/* sc-component-id: sc-ifAKCX */
+
+.jGuRgo{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-bottom:4rem;}
+/* sc-component-id: sc-EHOje */
+
+.gPfKFk{margin-right:1rem;width:5rem;height:6rem;}
+/* sc-component-id: sc-bZQynM */
+
+.hsfZhT blockquote{text-align:right;}
+</style><title data-react-helmet="true">在 MySQL 数据库大表中添加字段实例 | Liu Longbiao Blog</title><style id="gatsby-inlined-css">code{padding:.1em 0;color:#00a2ff}code[class*=language-],pre[class*=language-]{color:#00a2ff;background:none;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::-moz-selection,code[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection,pre[class*=language-] ::-moz-selection{text-shadow:none;background:#282a36}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{text-shadow:none;background:#282a36}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#282a36}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#a4ff06}.token.punctuation{color:#fc0}.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#ff008c}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#f1fa8c}.language-css .token.string,.style .token.string,.token.atrule,.token.attr-value,.token.entity,.token.keyword,.token.operator,.token.url{color:#8be9fd}.token.function{color:#f1fa8c}.token.important,.token.regex,.token.variable{color:#ff79c6}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style></head><body><div id="___gatsby"><div class="sc-bdVaJa iiWJkG" data-reactroot="" data-reactid="1" data-react-checksum="-836446623"><h3 data-reactid="2"><a href="/blogs/" data-reactid="3">LiuLongbiao&#x27;s Blog</a></h3><div data-reactid="4"><!-- react-empty: 5 --><h1 data-reactid="6">在 MySQL 数据库大表中添加字段实例</h1><p data-reactid="7">February 10, 2018</p><div data-reactid="8"><p>线上的 MySQL 数据库根据业务情况需要添加字段，以下是 DBA 给出的具体操作实例：</p>
+<p>小表情况下的添加逻辑：</p>
+<div class="gatsby-highlight">
+      <pre class="language-sql"><code><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> ls_evaluate
+<span class="token keyword">ADD</span> <span class="token keyword">COLUMN</span> schoolId <span class="token keyword">bigint</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span> <span class="token keyword">AFTER</span> content<span class="token punctuation">;</span> 
+<span class="token keyword">ADD</span> <span class="token keyword">INDEX</span> idx_ls_evaluate_schoolId <span class="token punctuation">(</span>schoolId<span class="token punctuation">)</span> <span class="token keyword">USING</span> <span class="token keyword">BTREE</span><span class="token punctuation">;</span>
+
+<span class="token keyword">UPDATE</span> ls_evaluate <span class="token number">a</span> <span class="token keyword">SET</span> 
+schoolId <span class="token operator">=</span> <span class="token punctuation">(</span>
+  <span class="token keyword">SELECT</span> schoolId <span class="token keyword">FROM</span> ls_lesson <span class="token number">b</span> 
+  <span class="token keyword">WHERE</span> 
+    <span class="token number">a</span><span class="token punctuation">.</span>courseSingleId <span class="token operator">=</span> <span class="token number">b</span><span class="token punctuation">.</span>courseSingleId
+    <span class="token operator">AND</span> <span class="token number">b</span><span class="token punctuation">.</span>isDeleted <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">WHERE</span> <span class="token number">a</span><span class="token punctuation">.</span>isDeleted <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+</code></pre>
+      </div>
+<p>测试环境表信息：</p>
+<div class="gatsby-highlight">
+      <pre class="language-sql"><code><span class="token operator">></span><span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span>evaluateId<span class="token punctuation">)</span> <span class="token keyword">from</span> ls_evaluate<span class="token punctuation">;</span>
+<span class="token operator">+</span><span class="token comment">-------------------+</span>
+<span class="token operator">|</span> <span class="token function">count</span><span class="token punctuation">(</span>evaluateId<span class="token punctuation">)</span> <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-------------------+</span>
+<span class="token operator">|</span>          <span class="token number">26105089</span> <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-------------------+</span>
+<span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">3</span> min <span class="token number">11.86</span> sec<span class="token punctuation">)</span>
+</code></pre>
+      </div>
+<div class="gatsby-highlight">
+      <pre class="language-sql"><code><span class="token operator">></span><span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span>courseSingleId<span class="token punctuation">)</span> <span class="token keyword">from</span> ls_lesson<span class="token punctuation">;</span>
+<span class="token operator">+</span><span class="token comment">-----------------------+</span>
+<span class="token operator">|</span> <span class="token function">count</span><span class="token punctuation">(</span>courseSingleId<span class="token punctuation">)</span> <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-----------------------+</span>
+<span class="token operator">|</span>                <span class="token number">690643</span> <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-----------------------+</span>
+</code></pre>
+      </div>
+<h2>增加字段、创建索引</h2>
+<ul>
+<li>备份表</li>
+</ul>
+<div class="gatsby-highlight">
+      <pre class="language-bash"><code>mysqldump -uroot -p -q --single-transaction lesson ls_evaluate <span class="token operator">></span> /otp/20180210_evaluate_backup.sql
+</code></pre>
+      </div>
+<p>先安装 <code>percona-toolkit</code>，使用里面的OSC工具执行了增加字段、创建索引的操作，花费时间20分钟。</p>
+<div class="gatsby-highlight">
+      <pre class="language-bash"><code>./bin/pt-online-schema-change -uroot -pcnstrong<span class="token comment">#123454321 -S /data/mysql01/mysql.sock --alter "ADD COLUMN schoolId  bigint(20) NOT NULL DEFAULT 0 AFTER content, ADD INDEX idx_ls_evaluate_schoolId (schoolId)" D=lesson,t=ls_evaluate --execute</span>
+</code></pre>
+      </div>
+<p>标准输出：</p>
+<div class="gatsby-highlight">
+      <pre class="language-none"><code>No slaves found.  See --recursion-method if host mysqlmq-107 has slaves.
+Not checking slave lag because no slaves were found and --check-slave-lag was not specified.
+Operation, tries, wait:
+  analyze_table, 10, 1
+  copy_rows, 10, 0.25
+  create_triggers, 10, 1
+  drop_triggers, 10, 1
+  swap_tables, 10, 1
+  update_foreign_keys, 10, 1
+Altering `lesson`.`ls_evaluate`...
+Creating new table...
+Created new table lesson._ls_evaluate_new OK.
+Altering new table...
+Altered `lesson`.`_ls_evaluate_new` OK.
+2018-02-10T17:19:18 Creating triggers...
+2018-02-10T17:19:18 Created triggers OK.
+2018-02-10T17:19:18 Copying approximately 25421419 rows...
+Copying `lesson`.`ls_evaluate`:   2% 18:12 remain
+...
+Copying `lesson`.`ls_evaluate`:  91% 01:52 remain
+Copying `lesson`.`ls_evaluate`:  94% 01:17 remain
+Copying `lesson`.`ls_evaluate`:  96% 00:52 remain
+Copying `lesson`.`ls_evaluate`:  97% 00:28 remain
+Copying `lesson`.`ls_evaluate`:  99% 00:03 remain
+2018-02-10T17:43:11 Copied rows OK.
+2018-02-10T17:43:11 Swapping tables...
+2018-02-10T17:43:11 Swapped original and new tables OK.
+2018-02-10T17:43:11 Dropping old table...
+2018-02-10T17:43:11 Dropped old table `lesson`.`_ls_evaluate_old` OK.
+2018-02-10T17:43:11 Dropping triggers...
+2018-02-10T17:43:11 Dropped triggers OK.</code></pre>
+      </div>
+<h2>更新字段</h2>
+<p>尝试直接在表上面执行更新操作，执行了30分钟，一直卡死状态。
+写了一个存储过程，通过游标处理更新操作，执行时间37分。</p>
+<div class="gatsby-highlight">
+      <pre class="language-sql"><code><span class="token keyword">delimiter</span> $$
+<span class="token keyword">create</span> <span class="token keyword">procedure</span> proc_update_table<span class="token punctuation">(</span><span class="token punctuation">)</span>
+     <span class="token keyword">BEGIN</span>
+     <span class="token comment">/* Declare Variables */</span>
+     <span class="token keyword">DECLARE</span> done_1 <span class="token keyword">INT</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">FALSE</span><span class="token punctuation">;</span>
+     <span class="token keyword">DECLARE</span> v_courseSingleId <span class="token keyword">bigint</span><span class="token punctuation">;</span>
+	 <span class="token keyword">DECLARE</span> v_schoolId <span class="token keyword">bigint</span><span class="token punctuation">;</span>
+     <span class="token keyword">declare</span> the_query <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+     <span class="token comment">/* Declare Conditions */</span>
+     <span class="token keyword">DECLARE</span> not_found CONDITION <span class="token keyword">FOR</span> <span class="token number">1741</span><span class="token punctuation">;</span>
+    
+     <span class="token comment">/* Declare Cursors */</span>
+     <span class="token keyword">DECLARE</span> cur1 <span class="token keyword">CURSOR</span> <span class="token keyword">FOR</span> <span class="token keyword">select</span> courseSingleId<span class="token punctuation">,</span> schoolId <span class="token keyword">from</span> ls_lesson <span class="token number">b</span> <span class="token keyword">where</span> 
+     <span class="token number">b</span><span class="token punctuation">.</span>isDeleted <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">order</span> <span class="token keyword">by</span> courseSingleId<span class="token punctuation">;</span>
+    
+     <span class="token comment">/* Declare Exception Handlers, usually with set actions */</span>
+     <span class="token comment">/* usually with set actions, the following handler has two forms,
+     /*>  one with begin .. end statements, and the other without */</span>
+     <span class="token keyword">DECLARE</span> <span class="token keyword">CONTINUE</span> <span class="token keyword">HANDLER</span> <span class="token keyword">FOR</span> <span class="token operator">NOT</span> FOUND <span class="token keyword">SET</span> done_1 <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">;</span>
+    
+         <span class="token keyword">OPEN</span> cur1<span class="token punctuation">;</span>
+         read_loop_1: LOOP
+         <span class="token keyword">FETCH</span> cur1 <span class="token keyword">INTO</span> v_courseSingleId<span class="token punctuation">,</span> v_schoolId<span class="token punctuation">;</span>
+     <span class="token keyword">IF</span> done_1 <span class="token operator">IS</span> <span class="token boolean">FALSE</span> <span class="token keyword">THEN</span>
+	 <span class="token keyword">set</span> <span class="token variable">@v_courseSingleId</span><span class="token operator">=</span>v_courseSingleId<span class="token punctuation">;</span>
+     <span class="token keyword">set</span> <span class="token variable">@v_schoolId</span><span class="token operator">=</span>v_schoolId<span class="token punctuation">;</span>
+         <span class="token keyword">select</span> concat<span class="token punctuation">(</span><span class="token string">'update ls_evaluate a set schoolId = '</span><span class="token punctuation">,</span> <span class="token variable">@v_schoolId</span><span class="token punctuation">,</span> <span class="token string">' where a.isDeleted = 0 and a.courseSingleId = '</span><span class="token punctuation">,</span> <span class="token variable">@v_courseSingleId</span><span class="token punctuation">,</span> <span class="token string">';'</span><span class="token punctuation">)</span> <span class="token keyword">into</span> the_query<span class="token punctuation">;</span>
+     <span class="token keyword">SET</span> <span class="token variable">@stmt</span><span class="token operator">=</span>the_query<span class="token punctuation">;</span>
+     PREPARE STMT <span class="token keyword">FROM</span> <span class="token variable">@stmt</span><span class="token punctuation">;</span>
+     <span class="token keyword">EXECUTE</span> STMT<span class="token punctuation">;</span>
+     <span class="token keyword">DEALLOCATE</span> PREPARE STMT<span class="token punctuation">;</span>
+	 <span class="token keyword">commit</span><span class="token punctuation">;</span>
+     <span class="token keyword">END</span> <span class="token keyword">IF</span><span class="token punctuation">;</span>
+         <span class="token keyword">IF</span> done_1 <span class="token keyword">THEN</span>
+         LEAVE read_loop_1<span class="token punctuation">;</span>
+     <span class="token keyword">END</span> <span class="token keyword">IF</span><span class="token punctuation">;</span>
+     <span class="token keyword">END</span> LOOP read_loop_1<span class="token punctuation">;</span>
+     <span class="token keyword">CLOSE</span> cur1<span class="token punctuation">;</span>
+         <span class="token keyword">end</span>$$
+</code></pre>
+      </div>
+<p>执行存储过程：</p>
+<div class="gatsby-highlight">
+      <pre class="language-none"><code>>call proc_update_table();
+Query OK, 0 rows affected, 1 warning (36 min 41.04 sec)</code></pre>
+      </div>
+<p>验证数据</p>
+<div class="gatsby-highlight">
+      <pre class="language-none"><code>>select count(a.schoolId) from ls_evaluate a, ls_lesson b 
+    -> where a.courseSingleId = b.courseSingleId
+    -> and a.isDeleted = 0 and b.isDeleted = 0 and a.schoolId=0;
++-------------------+
+| count(a.schoolId) |
++-------------------+
+|                 0 |
++-------------------+
+1 row in set (7.54 sec)</code></pre>
+      </div>
+<p>删除存储过程：</p>
+<div class="gatsby-highlight">
+      <pre class="language-none"><code>>drop procedure proc_update_table;</code></pre>
+      </div>
+<p>至此，整个在大表中添加字段过程完毕。</p></div><hr data-reactid="9"/><div class="sc-ifAKCX jGuRgo" data-reactid="10"><img class="sc-EHOje gPfKFk" src="data:image/png;base64,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" alt="Liu Longbiao" data-reactid="11"/><div class="sc-bZQynM hsfZhT" data-reactid="12"><blockquote data-reactid="13">纸上得来终觉浅，绝知此事要躬行。</blockquote><!-- react-text: 14 -->现就职于杭州施强教育科技有限公司，专注于使用计算机技术辅助教学过程。<!-- /react-text --></div></div></div></div></div><script id="webpack-manifest">/*<![CDATA[*/window.webpackManifest={"231608221292675":"app-a9df6e56aeb32f2d7796.js","99219681209289":"component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js","50739212244294":"component---src-templates-tags-js-834061c996d4fc2efe24.js","107818501498521":"component---src-templates-blog-post-js-8474d29277d63cb0c4a6.js","35783957827783":"component---src-pages-index-js-90236a5a198aa8a913e7.js","60335399758886":"path----557518bd178906f8d58a.js","210333531512890":"path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js","55702396619907":"path---tags-61de0d1d7f5519c625ba.js","197808841186072":"path---tags-docker-01482ca0605b0a6e7b0b.js","243245846898975":"path---tags-docker-toolbox-e7c8b519d13b33cca154.js","138285729724179":"path---tags-planning-e02befdf1070aac68df2.js","62235368007472":"path---tags-project-management-83a8342a3b625101a04b.js","116595490289348":"path---install-docker-toolbox-2cba3f0bd6327cc666bc.js","204084888617841":"path---gist-planning-6087d88dd48a52878bc2.js","273482875096861":"path---add-column-on-big-table-f14ed8504e25922ac0ca.js","142629428675168":"path---index-f2d8acfbcf81cb40e849.js","114276838955818":"component---src-layouts-index-js-50448f456c17df2a1e73.js"}/*]]>*/</script><script>/*<![CDATA[*/!function(e,t,r){function n(){for(;d[0]&&"loaded"==d[0][f];)c=d.shift(),c[o]=!i.parentNode.insertBefore(c,i)}for(var s,a,c,d=[],i=e.scripts[0],o="onreadystatechange",f="readyState";s=r.shift();)a=e.createElement(t),"async"in i?(a.async=!1,e.head.appendChild(a)):i[f]?(d.push(a),a[o]=n):e.write("<"+t+' src="'+s+'" defer></'+t+">"),a.src=s}(document,"script",["/blogs/commons-7eb08d8411d45e65fdac.js","/blogs/app-a9df6e56aeb32f2d7796.js","/blogs/path---add-column-on-big-table-f14ed8504e25922ac0ca.js","/blogs/component---src-templates-blog-post-js-8474d29277d63cb0c4a6.js","/blogs/component---src-layouts-index-js-50448f456c17df2a1e73.js"])/*]]>*/</script></body></html>
