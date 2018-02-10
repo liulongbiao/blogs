@@ -2,7 +2,7 @@
 title: 在 MySQL 数据库大表中添加字段实例
 date: "2018-02-10"
 path: "/add-column-on-big-table/"
-tags: ["planning", "project management"]
+tags: ["MySQL"]
 ---
 
 线上的 MySQL 数据库根据业务情况需要添加字段，以下是 DBA 给出的具体操作实例：
@@ -56,7 +56,7 @@ mysqldump -uroot -p -q --single-transaction lesson ls_evaluate > /otp/20180210_e
 先安装 `percona-toolkit`，使用里面的OSC工具执行了增加字段、创建索引的操作，花费时间20分钟。
 
 ```bash
-./bin/pt-online-schema-change -uroot -pcnstrong#123454321 -S /data/mysql01/mysql.sock --alter "ADD COLUMN schoolId  bigint(20) NOT NULL DEFAULT 0 AFTER content, ADD INDEX idx_ls_evaluate_schoolId (schoolId)" D=lesson,t=ls_evaluate --execute
+./bin/pt-online-schema-change -uroot -pPassword -S /data/mysql01/mysql.sock --alter "ADD COLUMN schoolId  bigint(20) NOT NULL DEFAULT 0 AFTER content, ADD INDEX idx_ls_evaluate_schoolId (schoolId)" D=lesson,t=ls_evaluate --execute
 ```
 
 标准输出：
