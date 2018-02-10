@@ -56,8 +56,10 @@ mysqldump -uroot -p -q --single-transaction lesson ls_evaluate > /otp/20180210_e
 先安装 `percona-toolkit`，使用里面的OSC工具执行了增加字段、创建索引的操作，花费时间20分钟。
 
 ```bash
-./bin/pt-online-schema-change -uroot -pPassword -S /data/mysql01/mysql.sock --alter "ADD COLUMN schoolId  bigint(20) NOT NULL DEFAULT 0 AFTER content, ADD INDEX idx_ls_evaluate_schoolId (schoolId)" D=lesson,t=ls_evaluate --execute
+pt-online-schema-change -uroot -pPassword -S /data/mysql01/mysql.sock --alter "ADD COLUMN schoolId  bigint(20) NOT NULL DEFAULT 0 AFTER content, ADD INDEX idx_ls_evaluate_schoolId (schoolId)" D=lesson,t=ls_evaluate --execute
 ```
+
+其中 `mysql.sock` 的地址可通过 `ps -ef|grep mysql` 命令得到。
 
 标准输出：
 
