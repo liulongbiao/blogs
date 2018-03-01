@@ -1,11 +1,11 @@
 ---
-title: [译]什么是 Item Response Theory
+title: 【译】什么是 Item Response Theory
 date: "2018-03-01"
 path: "/what-is-irt/"
 tags: ["IRT", "psychometrics"]
 ---
 
-[译]什么是 Item Response Theory
+【译】什么是 Item Response Theory
 
 原文地址： http://www.assess.com/what-is-item-response-theory/ <br/>
 By: by Nathan Thompson, PhD
