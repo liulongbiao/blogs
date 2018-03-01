@@ -38,7 +38,7 @@ IRT 的基础是由 **item parameters** 定义的数学模型。
 * `b`： 难度参数，该项适合的应试者水平的指标；通常范围是 -3 到 3，其中 0 是一个平均应试者水平
 * `c`： 伪猜测参数，它是一个下渐进性；通常为 `1/k`，其中 `k` 为选项的数量
 
-![Dichotomous-IRF-from-FastTest](https://liulongbiao.github.io/blogs/Dichotomous-IRF-from-FastTest.png)
+![Dichotomous-IRF-from-FastTest](https://liulongbiao.github.io/blogs/images/Dichotomous-IRF-from-FastTest.png)
 
 这些参数用于图形显示一个 **项目反应函数** (IRF)。
 上图为一个 IRF 的示例。这里参数 `a` 是近似的 1.0，表示是一个相当有区分度的项目。
@@ -64,7 +64,7 @@ IRF 有多种用途。以下是其中一些：
 * 电算化适应性测试(CAT) 的开发
 * 数据取证，以查找作弊者或其它问题
 
-![FastTest-test-statistics-with-TIF](https://liulongbiao.github.io/blogs/FastTest-test-statistics-with-TIF-705x401.png)
+![FastTest-test-statistics-with-TIF](https://liulongbiao.github.io/blogs/images/FastTest-test-statistics-with-TIF-705x401.png)
 
 除了能用于对每个项目独立评估外，IRF 可以以多种形式进行联合来对整体测试或表单进行评估。
 两种最重要的方法是 度量的条件标准方差(CSEM) 和 测试信息函数(TIF)。
