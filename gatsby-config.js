@@ -2,7 +2,8 @@ module.exports = {
   pathPrefix: "/blogs",
   siteMetadata: {
     title: "Liu Longbiao Blog",
-    author: "Liu Longbiao"
+    author: "Liu Longbiao",
+    siteUrl: "https://liulongbiao.github.io/blogs/"
   },
   plugins: [
     {
