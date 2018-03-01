@@ -17,20 +17,11 @@ const Container = styled.div`
 class Template extends React.Component {
   render() {
     const { location, children } = this.props;
-    let header;
-    if (location.pathname === "/") {
-      header = (
-        <h1>
-          <Link to={"/"}>LiuLongbiao's Blog</Link>
-        </h1>
-      );
-    } else {
-      header = (
-        <h3>
-          <Link to={"/"}>LiuLongbiao's Blog</Link>
-        </h3>
-      );
-    }
+    let header = (
+      <h3>
+        <Link to={"/"}>LiuLongbiao's Blog</Link>
+      </h3>
+    );
     return (
       <Container>
         {header}
