@@ -1,4 +1,5 @@
 # blogs
 
-My Blog Posts
+[My Blog Posts](https://liulongbiao.github.io/blogs/)
+
 
